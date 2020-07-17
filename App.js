@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
 
 import Splash from './src/views/Splash'
+import Accounts from './src/views/Accounts'
+import Login from './src/views/Login'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
@@ -20,8 +22,10 @@ function DrawerNavigator() {
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Splash" >
+            <Stack.Navigator initialRouteName="Login" >
                 <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
+                <Stack.Screen name="Accounts" component={Accounts} options={{ headerShown: false }} />
+                <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
                 {/* <Stack.Screen name="Application" component={DrawerNavigator} options={{ headerShown: false }} /> */}
             </Stack.Navigator>
         </NavigationContainer>
