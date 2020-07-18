@@ -1,5 +1,5 @@
 import styled from 'styled-components/native'
-import { MiddleCenterColumn, MiddleCenterRow, CenterColumn } from '../../themes/StyleConstants'
+import { MiddleCenterColumn, MiddleCenterRow, CenterColumn, CenterRow } from '../../themes/StyleConstants'
 
 import Colors from '../../themes/Colors'
 import Fonts from '../../themes/Fonts'
@@ -40,6 +40,13 @@ export const TextGray = styled.Text`
     color: ${Colors.middleGray};
     font-size: 15px;
     font-family: ${Fonts.semiBold};
+    text-align: center;
+`
+
+export const TextRed = styled.Text`
+    color: ${Colors.secondary};
+    font-size: 15px;
+    font-family: ${Fonts.bold};
 `
 
 export const Progress = styled.View`
@@ -60,13 +67,13 @@ export const Fill = styled.View`
 export const Background = styled.Image.attrs({ source: BgLogin, resizeMode: 'cover' })`
     position: absolute;
     width: 100%;
-    height: 300px;
+    height: 330px;
 `
 
 export const Header = styled.View`
     ${CenterColumn}
     width: 100%;
-    height: 250px;
+    height: 280px;
 `
 
 export const Title = styled.Text`
@@ -78,8 +85,15 @@ export const Title = styled.Text`
 export const Box = styled.View`
     ${MiddleCenterColumn}
     width: 90%;
-    padding: 10px;
+    margin-bottom: 15px;
+    padding: 25px 25px 18px 25px;
     border-radius: 10px;
-    background-color: ${Colors.white};
     elevation: 4;
+    background-color: ${Colors.white};
 `
+
+export const Line = styled.View`
+    ${CenterRow}
+`
+
+export const Touch = styled.TouchableOpacity``

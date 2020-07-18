@@ -21,6 +21,9 @@ export default Splash = ({ navigation }) => {
 
     useEffect(() => {
         animate()
+        setTimeout(() => {
+            navigation.reset({ routes: [{ name: 'Accounts' }] })
+        }, 2000);
     }, [])
 
     return (

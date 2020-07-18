@@ -1,31 +1,31 @@
 import React from 'react'
 import styled from 'styled-components/native'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 import { MiddleCenterRow, CenterRow } from '../themes/StyleConstants'
 
-export default Input = ({ label, icon, outlined, value, onChange, editable, maxLength, placeholder, textAlign }) => {
+export default Input = ({ label, icon, outlined, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry }) => {
 
     const Container = styled.View`
         ${MiddleCenterRow}
         justify-content: space-between;
         width: 100%;
         padding: 5px;
-        margin-bottom: 5px;
+        margin-bottom: 10px;
         border-radius: 4px;
-        border-bottom-color: ${Colors.smoothGray};
+        border-bottom-color: ${Colors.middleGray};
         border-bottom-width: 1px;
-        background-color: lightblue;
+        background-color: ${Colors.iceWhite};
     `
 
     const Label = styled.Text`
         color: ${outlined ? Colors.primary : Colors.secondary};
-        font-size: 12px;
+        font-size: 14px;
         font-family: ${Fonts.semiBold};
         width: 25%;
         padding-right: 5px;
-        background-color: pink;
     `
 
     const InputText = styled.TextInput`
@@ -39,19 +39,18 @@ export default Input = ({ label, icon, outlined, value, onChange, editable, maxL
         text-align: ${textAlign ? textAlign : 'left'};
     `
 
-    const Icon = styled.View`
+    const BoxIcon = styled.View`
         ${CenterRow}
         width: 12%;
         height: 100%;
         padding-left: 5px;
-        background-color: orange;
     `
 
     return (
         <Container>
             {label ? <Label>{label}</Label> : null}
-            <InputText value={value} onChange={onChange} maxLength={maxLength} placeholder={placeholder} editable={editable} />
-            {icon ? <Icon>{icon}</Icon> : null}
+            <InputText value={value} onChangeText={onChangeText} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} />
+            {icon ? <BoxIcon>{<Icon name={icon} size={30} color={Colors.middleGray} />}</BoxIcon> : null}
         </Container>
     )
 }

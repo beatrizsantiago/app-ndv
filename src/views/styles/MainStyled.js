@@ -14,3 +14,14 @@ export const ContainerCenter = styled.View`
     flex: 1;
     background-color: ${Colors.white};
 `
+
+export const Scroll = styled.ScrollView.attrs({
+    showsVerticalScrollIndicator: false,
+    contentContainerStyle: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+    }
+})`
+    flex: 1;
+    background-color: ${Colors.white};
+`

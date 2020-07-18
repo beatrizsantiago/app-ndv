@@ -14,8 +14,8 @@ export default Accounts = ({ navigation }) => {
                 <TextGray>Seja bem-vindo(a)!</TextGray>
             </BoxLogo>
 
-            <Button title="Cadastre-se" />
-            <Button title="Login" outlined />
+            <Button title="Cadastre-se" onPress={() => navigation.navigate('Register')} />
+            <Button title="Login" onPress={() => navigation.reset({ routes: [{ name: 'Login' }] })} outlined />
         </ContainerCenter>
     )
 }
