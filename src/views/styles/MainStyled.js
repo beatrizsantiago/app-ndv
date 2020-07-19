@@ -19,9 +19,9 @@ export const Scroll = styled.ScrollView.attrs({
     showsVerticalScrollIndicator: false,
     contentContainerStyle: {
         flexDirection: 'column',
-        justifyContent: 'center',
+        alignItems: 'center',
     }
 })`
-    flex: 1;
+    width: 100%;
     background-color: ${Colors.white};
 `

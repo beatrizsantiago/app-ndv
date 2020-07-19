@@ -7,6 +7,7 @@ import Fonts from '../../themes/Fonts'
 import IconLogo from '../../assets/icons/logo-shadow.png'
 import IconLogoWhite from '../../assets/icons/logo-white.png'
 import BgLogin from '../../assets/img/bg-login.jpg'
+import BgRegister from '../../assets/img/bg-register.jpg'
 
 export const BoxLogo = styled.View`
     ${MiddleCenterColumn}
@@ -64,7 +65,7 @@ export const Fill = styled.View`
     background-color: ${Colors.secondary};
 `
 
-export const Background = styled.Image.attrs({ source: BgLogin, resizeMode: 'cover' })`
+export const Background = styled.Image.attrs(props => ({ source: props.register == true ? BgRegister : BgLogin, resizeMode: 'cover' }))`
     position: absolute;
     width: 100%;
     height: 330px;
@@ -85,7 +86,6 @@ export const Title = styled.Text`
 export const Box = styled.View`
     ${MiddleCenterColumn}
     width: 90%;
-    margin-bottom: 15px;
     padding: 25px 25px 18px 25px;
     border-radius: 10px;
     elevation: 4;
@@ -94,6 +94,13 @@ export const Box = styled.View`
 
 export const Line = styled.View`
     ${CenterRow}
+    margin: 15px 0px;
 `
 
 export const Touch = styled.TouchableOpacity``
+
+export const RowButtons = styled.View`
+    ${MiddleCenterRow}
+    justify-content: space-between;
+    width: 100%;
+`

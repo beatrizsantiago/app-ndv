@@ -6,7 +6,7 @@ import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 import { MiddleCenterRow, CenterRow } from '../themes/StyleConstants'
 
-export default Input = ({ label, icon, outlined, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry }) => {
+export default Input = ({ label, icon, outlined, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error }) => {
 
     const Container = styled.View`
         ${MiddleCenterRow}
@@ -15,8 +15,8 @@ export default Input = ({ label, icon, outlined, value, onChangeText, editable, 
         padding: 5px;
         margin-bottom: 10px;
         border-radius: 4px;
-        border-bottom-color: ${Colors.middleGray};
-        border-bottom-width: 1px;
+        border-bottom-color: ${error ? Colors.secondary : Colors.middleGray};
+        border-bottom-width: ${error ? 2 : 1}px;
         background-color: ${Colors.iceWhite};
     `
 
@@ -24,12 +24,12 @@ export default Input = ({ label, icon, outlined, value, onChangeText, editable, 
         color: ${outlined ? Colors.primary : Colors.secondary};
         font-size: 14px;
         font-family: ${Fonts.semiBold};
-        width: 25%;
+        width: 30%;
         padding-right: 5px;
     `
 
     const InputText = styled.TextInput`
-        width: ${label && icon ? 63 : (label ? 75 : (icon ? 88 : 100))}%;
+        width: ${label && icon ? 58 : (label ? 70 : (icon ? 88 : 100))}%;
         height: 100%;
         margin: 0px;
         padding: 0px;

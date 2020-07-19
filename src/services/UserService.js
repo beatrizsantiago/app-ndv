@@ -9,4 +9,15 @@ export async function Login(email, password) {
     }
 }
 
-export default { Login }
+export async function Register(fullname, phone, email, password, confirmPassword) {
+    try {
+        console.warn(fullname, phone, email, password, confirmPassword);
+        return true
+
+    } catch (error) {
+        console.warn("Error Register", error);
+        throw error
+    }
+}
+
+export default { Login, Register }
