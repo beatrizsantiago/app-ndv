@@ -19,17 +19,34 @@ export default Register = ({ navigation }) => {
     const [showAlert, setShowAlert] = useState(false)
     const [messageAlert, setMessageAlert] = useState('')
     const [loading, setLoading] = useState(false)
+    const [success, setSuccess] = useState(false)
+
+    const closeAlert = () => {
+        setLoading(false)
+        if (success) {
+            setShowAlert(false)
+            navigation.reset({ routes: [{ name: 'Login' }] })
+            
+        } else {
+            setShowAlert(false)
+        }
+    }
 
     const openAlert = message => {
         setMessageAlert(message)
         setShowAlert(true)
-        setLoading(false)
     }
 
     const sendDatas = () => {
         UserService.Register(fullName, phone, email, password, confirmPassword)
             .then(() => {
-                setLoading(false)
+                setSuccess(true)
+                setFullName('')
+                setPhone('')
+                setEmail('')
+                setPassword('')
+                setConfirmPassword('')
+                openAlert('Cadastro realizado com sucesso! Verifique o seu e-mail e confirme sua conta para realizar o login.')
             })
             .catch(error => {
                 openAlert('Não foi possível realizar o seu cadastro. Tente novamente mais tarde!')
@@ -68,15 +85,15 @@ export default Register = ({ navigation }) => {
                 <Title>Cadastre-se</Title>
             </Header>
             <Box>
-                <Input label="Nome Completo" outlined />
-                <Input label="Telefone" outlined />
-                <Input label="E-mail" outlined />
-                <Input label="Senha" icon="eye" outlined />
-                <Input label="Confirmar Senha" icon="eye" outlined />
+                <Input label="Nome Completo" editable={!loading} outlined />
+                <Input label="Telefone" editable={!loading} outlined />
+                <Input label="E-mail" editable={!loading} outlined />
+                <Input label="Senha" editable={!loading} icon="eye" outlined />
+                <Input label="Confirmar Senha" editable={!loading} icon="eye" outlined />
 
                 <RowButtons>
-                    <Button title="Voltar" onPress={() => navigation.goBack()} width={48} outlined />
-                    <Button title="Enviar" onPress={() => handlePressSend()} width={48} loading={loading} />
+                    <Button title="Voltar" onPress={() => navigation.goBack()} disabled={loading} width={48} outlined />
+                    <Button title="Enviar" onPress={() => handlePressSend()} width={48} disabled={loading} loading={loading} />
                 </RowButtons>
             </Box>
             <Line>
@@ -84,7 +101,7 @@ export default Register = ({ navigation }) => {
                 <Touch onPress={() => navigation.navigate('Login')}><TextRed>Faça login.</TextRed></Touch>
             </Line>
 
-            <AlertAnimated show={showAlert} onConfirmPressed={() => setShowAlert(false)} message={messageAlert} />
+            <AlertAnimated show={showAlert} onConfirmPressed={() => closeAlert()} message={messageAlert} />
         </Scroll>
     )
 }
