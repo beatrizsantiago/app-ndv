@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Home" backBehavior="initialRoute">
+        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Integration" backBehavior="initialRoute">
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="Integration" component={Integration} />
         </Drawer.Navigator>

@@ -169,10 +169,8 @@ const Body = styled.ScrollView`
 
 const Item = styled.TouchableOpacity`
     ${MiddleCenterRow}
-    width: 96.5%;
-    padding: 8px;
-    margin: 5px;
-    border-radius: 5px;
+    width: 100%;
+    padding: 15px;
     background-color: ${props => props.type == 1 ? Colors.blackTransparent5 : 'transparent'};
 `
 
@@ -186,7 +184,7 @@ const Label = styled.Text`
     color: ${Colors.white};
     font-size: 16px;
     font-family: ${Fonts.bold};
-    margin-left: 5px;
+    margin-left: 15px;
 `
 
 const Footer = styled.View`
