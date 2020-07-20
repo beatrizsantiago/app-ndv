@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
 import IconAnt from 'react-native-vector-icons/AntDesign'
+import { connect } from 'react-redux'
+
+import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
+
+import UserService from '../services/UserService'
+
+import AlertAnimated from './AlertAnimated'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
@@ -10,13 +17,14 @@ import { CenterColumn, MiddleCenterRow } from '../themes/StyleConstants'
 
 import BgDrawer from '../assets/img/bg-drawer-noise.jpg'
 
-export default DrawerMenu = (props) => {
-    // console.warn(props.state);
+const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
+
+    const [showAlert, setShowAlert] = useState(false)
 
     const openYoutube = () => {
-        Linking.canOpenURL('vnd.youtube://user/channel/UCSsJY4uobyUO33vs3nc7xLQ').then(supported => {
+        Linking.canOpenURL('youtube://channel/UCSsJY4uobyUO33vs3nc7xLQ').then(supported => {
             if (supported) {
-                return Linking.openURL('vnd.youtube://user/channel/UCSsJY4uobyUO33vs3nc7xLQ')
+                return Linking.openURL('youtube://channel/UCSsJY4uobyUO33vs3nc7xLQ')
             } else {
                 return Linking.openURL('https://www.youtube.com/channel/UCSsJY4uobyUO33vs3nc7xLQ')
             }
@@ -34,13 +42,34 @@ export default DrawerMenu = (props) => {
     }
 
     const openFacebook = () => {
-        Linking.canOpenURL('fb://page/ndvfortaleza').then(supported => {
+        Linking.canOpenURL('fb://page/139996232323232553360774/').then(supported => {
             if (supported) {
-                return Linking.openURL('fb://page/ndvfortaleza')
+                return Linking.openURL('fb://page/139996232323232553360774/')
             } else {
                 return Linking.openURL('https://www.facebook.com/ndvfortaleza/')
             }
         })
+    }
+
+    const logoff = () => {
+        UserService.Logout()
+            .then(() => {
+                setShowAlert(false)
+                props.navigation.reset({ routes: [{ name: 'Login' }] })
+            })
+    }
+
+    const getType = route => {
+        if (route === currentNavigation) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
+    const navigationScreen = routeName => {
+        setCurrentNavigation(routeName)
+        props.navigation.navigate(routeName)
     }
 
     return (
@@ -53,23 +82,18 @@ export default DrawerMenu = (props) => {
                     <User>Beatriz Santiago</User>
                 </Header>
                 <Body>
-                    <Item>
+                    <Item type={getType('Home')} onPress={() => navigationScreen('Home')}>
                         <IconDrawer name="home" />
                         <Label>Home</Label>
                     </Item>
-                    <Item>
-                        <IconDrawer name="user" />
+                    <Item type={getType('Integration')} onPress={() => navigationScreen('Integration')}>
+                        <IconDrawer name="team" />
                         <Label>Integração</Label>
                     </Item>
-                    <Item>
-                        <IconDrawer name="search1" />
-                        <Label>Pesquisar Cap</Label>
+                    <Item onPress={() => setShowAlert(true)}>
+                        <IconDrawer name="logout" />
+                        <Label>Sair</Label>
                     </Item>
-                    <Item>
-                        <IconDrawer name="setting" />
-                        <Label>Meu perfil</Label>
-                    </Item>
-
                 </Body>
                 <Footer>
                     <TouchableOpacity onPress={() => openYoutube()}>
@@ -82,11 +106,24 @@ export default DrawerMenu = (props) => {
                         <Icon name="facebook" />
                     </TouchableOpacity>
                 </Footer>
-                <Box></Box>
+                {/* <Box>
+                    <IconMaterial name="window-close" color={Colors.primary} size={35} />
+                </Box> */}
             </Background>
+
+            <AlertAnimated show={showAlert} onConfirmPressed={() => logoff()} message="Realmente deseja sair do aplicativo?" onCancelPressed={() => setShowAlert(false)} viewCancelButton={true} textCancel="Não" textConfirm="Sim" />
         </Container>
     )
 }
+
+const mapStateToProps = state => ({
+    currentNavigation: state.navigation.currentNavigation
+})
+const mapDispatchToProps = dispatch => ({
+    setCurrentNavigation: navigation => dispatch(setCurrentNavigation(navigation))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu)
 
 const Container = styled.View`
     width: 100%;
@@ -132,15 +169,17 @@ const Body = styled.ScrollView`
 
 const Item = styled.TouchableOpacity`
     ${MiddleCenterRow}
-    width: 100%;
-    padding: 5px;
+    width: 96.5%;
+    padding: 8px;
     margin: 5px;
+    border-radius: 5px;
+    background-color: ${props => props.type == 1 ? Colors.blackTransparent5 : 'transparent'};
 `
 
 const IconDrawer = styled(IconAnt).attrs(props => ({
     name: props.name,
     color: Colors.white,
-    size: 28
+    size: 26
 }))``
 
 const Label = styled.Text`
@@ -163,10 +202,12 @@ const Icon = styled(IconMaterial).attrs(props => ({
     size: 35
 }))``
 
-const Box = styled.View`
+const Box = styled.TouchableOpacity`
+    ${CenterColumn}
     position: absolute;
     width: 50px;
     height: 50px;
+    top: 0px;
     right: -50px;
     background-color: yellow;
 `

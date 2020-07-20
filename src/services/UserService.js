@@ -20,4 +20,15 @@ export async function Register(fullname, phone, email, password, confirmPassword
     }
 }
 
-export default { Login, Register }
+export async function Logout() {
+    try {
+        
+        return true
+
+    } catch (error) {
+        console.warn("Error Logout", error);
+        throw error
+    }
+}
+
+export default { Login, Register, Logout }

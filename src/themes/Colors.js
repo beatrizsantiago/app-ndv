@@ -12,6 +12,7 @@ const Colors = {
     iceWhite: '#fafafa',
     white: '#ffffff',
     black: '#000000',
+    blackTransparent5: 'rgba(0, 0, 0, 0.5)',
     greenTransparent1: 'rgba(0, 176, 12, 0.1)',
     yellowTransparent1: 'rgba(240, 208, 0, 0.1)',
     redTransparent1: 'rgba(255, 0, 0, 0.1)',
