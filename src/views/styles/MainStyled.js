@@ -6,6 +6,7 @@ import Colors from '../../themes/Colors'
 export const Container = styled.View`
     ${MiddleCenterColumn}
     flex: 1;
+    padding: ${props => props.padding ? props.padding : 0}px;
     background-color: ${Colors.white};
 `
 

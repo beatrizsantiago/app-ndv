@@ -10,7 +10,7 @@ const Tab = createBottomTabNavigator()
 
 export default Integration = ({ navigation }) => {
     return (
-        <Tab.Navigator tabBar={props => <TabBar {...props} />}>
+        <Tab.Navigator tabBar={props => <TabBar {...props} />} initialRouteName="RegisterLife">
             <Tab.Screen name="ListLifes" component={ListLifes} options={{ title: 'Vidas' }} />
             <Tab.Screen name="RegisterLife" component={RegisterLife} options={{ title: 'Cadastro' }} />
         </Tab.Navigator>

@@ -36,4 +36,27 @@ export async function GetLifes() {
     }
 }
 
-export default { GetLifes }
+export async function SendFeedback(idLife, feedback) {
+    try {
+        console.warn(idLife, feedback);
+        return true
+
+    } catch (error) {
+        console.warn("Error SendFeedback", error);
+        throw error
+    }
+}
+
+
+export async function RegisterNewLife() {
+    try {
+        console.warn();
+        return true
+
+    } catch (error) {
+        console.warn("Error RegisterNewLife", error);
+        throw error
+    }
+}
+
+export default { GetLifes, SendFeedback, RegisterNewLife }
