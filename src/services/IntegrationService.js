@@ -48,9 +48,9 @@ export async function SendFeedback(idLife, feedback) {
 }
 
 
-export async function RegisterNewLife() {
+export async function RegisterNewLife(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        console.warn();
+        console.warn(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister);
         return true
 
     } catch (error) {
