@@ -9,7 +9,7 @@ export const Background = styled.View`
     position: absolute;
     top: 0px;
     width: 100%;
-    height: 100px;
+    height: 146px;
     background-color: ${Colors.secondary};
 `
 
@@ -17,36 +17,29 @@ export const Header = styled.View`
     ${MiddleCenterColumn}
     justify-content: flex-end;
     width: 100%;
-    height: 150px;
+    height: 108px;
     margin-bottom: 5px;
 `
 
 export const Box = styled.View`
     ${MiddleCenterRow}
     justify-content: space-around;
-    width: 85%;
-    height: 100px;
+    width: 96%;
+    padding: 10px;
     border-radius: 10px;
-    background-color: ${Colors.backgroundGray};
+    background-color: ${Colors.blackTransparent6};
 `
 
 export const SamllBox = styled.View`
-    ${CenterColumn}
+    ${MiddleCenterRow}
     width: 49%;
 `
 
-export const Circle = styled.View`
-    ${CenterColumn}
-    width: 60px;
-    height: 60px;
-    border-radius: 30px;
-    background-color: ${Colors.secondary};
-`
-
-export const TextRed = styled.Text`
-    color: ${Colors.secondary};
+export const TextWhite = styled.Text`
+    color: ${Colors.white};
     font-size: 16px;
     font-family: ${Fonts.bold};
+    margin-left: 5px;
 `
 
 export const Line = styled.TouchableOpacity`

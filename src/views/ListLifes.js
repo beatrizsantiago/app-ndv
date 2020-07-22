@@ -4,13 +4,14 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import IntegrationService from '../services/IntegrationService'
 
 import Loading from '../components/Loading'
+import TabHeader from '../components/TabHeader'
 
 import { Scroll } from './styles/MainStyled'
-import { Background, Header, Box, SamllBox, TextRed, Line, TextLabel, Circle } from './styles/ListLifesStyled'
+import { Background, Header, Box, SamllBox, TextWhite, Line, TextLabel } from './styles/ListLifesStyled'
 
 import Colors from '../themes/Colors'
 
-export default ListLifes = ({ navigation }) => {
+export default ListLifes = (props) => {
 
     const [listLifes, setListLifes] = useState([])
     const [loading, setLoading] = useState(false)
@@ -44,18 +45,15 @@ export default ListLifes = ({ navigation }) => {
                     <>
                         <Header>
                             <Background />
+                            <TabHeader {...props} />
                             <Box>
                                 <SamllBox>
-                                    <Circle>
-                                        <Icon name="clipboard-account-outline" color={Colors.white} size={35} />
-                                    </Circle>
-                                    <TextRed>5 Vidas</TextRed>
+                                    <Icon name="clipboard-account-outline" color={Colors.white} size={35} />
+                                    <TextWhite>05 Pessoas</TextWhite>
                                 </SamllBox>
                                 <SamllBox>
-                                    <Circle>
-                                        <Icon name="ballot-recount-outline" color={Colors.white} size={35} />
-                                    </Circle>
-                                    <TextRed>15 Feedbacks</TextRed>
+                                    <Icon name="ballot-recount-outline" color={Colors.white} size={35} />
+                                    <TextWhite>15 Feedbacks</TextWhite>
                                 </SamllBox>
                             </Box>
                         </Header>
