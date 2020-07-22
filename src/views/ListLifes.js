@@ -5,6 +5,7 @@ import IntegrationService from '../services/IntegrationService'
 
 import Loading from '../components/Loading'
 import TabHeader from '../components/TabHeader'
+import ModalFeedback from '../components/ModalFeedback'
 
 import { Scroll } from './styles/MainStyled'
 import { Background, Header, Box, SamllBox, TextWhite, Line, TextLabel } from './styles/ListLifesStyled'
@@ -15,6 +16,8 @@ export default ListLifes = (props) => {
 
     const [listLifes, setListLifes] = useState([])
     const [loading, setLoading] = useState(false)
+    const [showModal, setShowModal] = useState(false)
+    const [selectLife, setSelectLife] = useState({})
 
     useEffect(() => {
         getListLifes()
@@ -29,8 +32,13 @@ export default ListLifes = (props) => {
             })
     }
 
+    const sendFeedback = (life) => {
+        setSelectLife(life)
+        setShowModal(true)
+    }
+
     const showLifes = () => listLifes.map((life, index) => (
-        <Line key={index}>
+        <Line key={index} onPress={() => sendFeedback(life)}>
             <TextLabel>{life.name}</TextLabel>
             <TextLabel>{life.phone}</TextLabel>
         </Line>
@@ -60,6 +68,7 @@ export default ListLifes = (props) => {
                         {showLifes()}
                     </>
             }
+            <ModalFeedback open={showModal} onClosedPress={() => setShowModal(false)} datas={selectLife} />
         </Scroll>
     )
 }
