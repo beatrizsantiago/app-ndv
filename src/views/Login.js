@@ -52,8 +52,8 @@ export default Login = ({ navigation }) => {
                 <Title>Login</Title>
             </Header>
             <Box>
-                <Input icon="account-circle-outline" outlined />
-                <Input value={password} onChangeText={text => setPassword(text)} icon="form-textbox-password" outlined secureTextEntry />
+                <Input value={email} onChangeText={text => setEmail(text)} icon="account-circle-outline" outlined />
+                <Input inputKey={'password'} value={password} onChangeText={text => setPassword(text)} icon="form-textbox-password" outlined secureTextEntry />
                 <Button title="Entrar" width={80} onPress={() => handlePressLogin()} loading={loading} />
             </Box>
             <Line>
