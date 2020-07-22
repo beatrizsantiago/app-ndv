@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components/native'
+import NetInfo from "@react-native-community/netinfo"
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -43,14 +44,21 @@ export default ModalFeedback = ({ open, onClosedPress, datas = {} }) => {
             openAlert('É necessário que a mensagem possua no mínimo 50 caracteres.')
 
         } else {
-            IntegrationService.SendFeedback(datas.id, feedback)
-                .then(() => {
-                    setSuccess(true)
-                    openAlert('Feedback enviado com sucesso.')
-                })
-                .catch(error => {
-                    openAlert('Não foi possível enviar seu feedback. Tente novamente mais tarde.')
-                })
+            NetInfo.fetch().then(state => {
+                if (state.isConnected) {
+                    IntegrationService.SendFeedback(datas.id, feedback)
+                        .then(() => {
+                            setSuccess(true)
+                            openAlert('Feedback enviado com sucesso.')
+                        })
+                        .catch(error => {
+                            openAlert('Não foi possível enviar seu feedback. Tente novamente mais tarde.')
+                        })
+
+                } else {
+                    openAlert('É necessário ter conexão com a internet para enviar um feedback.')
+                }
+            })
         }
     }
 

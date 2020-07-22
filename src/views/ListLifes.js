@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
+import { RefreshControl } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import NetInfo from "@react-native-community/netinfo"
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -18,6 +20,8 @@ export default ListLifes = (props) => {
     const [loading, setLoading] = useState(false)
     const [showModal, setShowModal] = useState(false)
     const [selectLife, setSelectLife] = useState({})
+    const [showAlert, setShowAlert] = useState(false)
+    const [refreshing, setRefreshing] = useState(false)
 
     useEffect(() => {
         getListLifes()
@@ -25,17 +29,32 @@ export default ListLifes = (props) => {
 
     const getListLifes = () => {
         setLoading(true)
-        IntegrationService.GetLifes()
-            .then(resp => {
-                setListLifes(resp)
+
+        NetInfo.fetch().then(state => {
+            if (state.isConnected) {
+                IntegrationService.GetLifes()
+                    .then(resp => {
+                        setListLifes(resp)
+                        setLoading(false)
+                    })
+
+            } else {
+                setShowAlert(true)
                 setLoading(false)
-            })
+            }
+        })
     }
 
     const sendFeedback = (life) => {
         setSelectLife(life)
         setShowModal(true)
     }
+
+    const onRefresh = useCallback(() => {
+        setRefreshing(true)
+        getListLifes()
+        setRefreshing(false)
+    }, [refreshing])
 
     const showLifes = () => listLifes.map((life, index) => (
         <Line key={index} onPress={() => sendFeedback(life)}>
@@ -45,7 +64,7 @@ export default ListLifes = (props) => {
     ))
 
     return (
-        <Scroll>
+        <Scroll refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}>
             {
                 loading ?
                     <Loading />
@@ -69,6 +88,7 @@ export default ListLifes = (props) => {
                     </>
             }
             <ModalFeedback open={showModal} onClosedPress={() => setShowModal(false)} datas={selectLife} />
+            <AlertAnimated show={showAlert} onConfirmPressed={() => setShowAlert(false)} message="É necessário ter conexão com a internet para continuar." />
         </Scroll>
     )
 }

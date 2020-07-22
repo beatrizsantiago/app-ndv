@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import NetInfo from "@react-native-community/netinfo"
 
 import UserService from '../services/UserService'
 
@@ -26,7 +27,7 @@ export default Register = ({ navigation }) => {
         if (success) {
             setShowAlert(false)
             navigation.reset({ routes: [{ name: 'Login' }] })
-            
+
         } else {
             setShowAlert(false)
         }
@@ -38,19 +39,26 @@ export default Register = ({ navigation }) => {
     }
 
     const sendDatas = () => {
-        UserService.Register(fullName, phone, email, password, confirmPassword)
-            .then(() => {
-                setSuccess(true)
-                setFullName('')
-                setPhone('')
-                setEmail('')
-                setPassword('')
-                setConfirmPassword('')
-                openAlert('Cadastro realizado com sucesso! Verifique o seu e-mail e confirme sua conta para realizar o login.')
-            })
-            .catch(error => {
-                openAlert('Não foi possível realizar o seu cadastro. Tente novamente mais tarde!')
-            })
+        NetInfo.fetch().then(state => {
+            if (state.isConnected) {
+                UserService.Register(fullName, phone, email, password, confirmPassword)
+                    .then(() => {
+                        setSuccess(true)
+                        setFullName('')
+                        setPhone('')
+                        setEmail('')
+                        setPassword('')
+                        setConfirmPassword('')
+                        openAlert('Cadastro realizado com sucesso! Verifique o seu e-mail e confirme sua conta para realizar o login.')
+                    })
+                    .catch(error => {
+                        openAlert('Não foi possível realizar o seu cadastro. Tente novamente mais tarde!')
+                    })
+
+            } else {
+                openAlert('É necessário ter conexão com a internet para realizar o cadastro.')
+            }
+        })
     }
 
     const regexEmail = /[A-Za-z0-9][\w.]+@[a-z]+\.[a-z]{2}/

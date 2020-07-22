@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import NetInfo from "@react-native-community/netinfo"
 
 import UserService from '../services/UserService'
 
@@ -29,18 +30,25 @@ export default Login = ({ navigation }) => {
         setLoading(true)
         if (!email || !regexEmail.test(email)) {
             openAlert('É necessário informar um e-mail válido.')
-            
+
         } else if (!password) {
             openAlert('Informe sua senha.')
-            
+
         } else {
-            UserService.Login(email, password)
-                .then(() => {
-                    setLoading(false)
-                })
-                .catch(error => {
-                    openAlert('Não foi possível realizar o login. Tente novamente mais tarde!')
-                })
+            NetInfo.fetch().then(state => {
+                if (state.isConnected) {
+                    UserService.Login(email, password)
+                        .then(() => {
+                            setLoading(false)
+                        })
+                        .catch(error => {
+                            openAlert('Não foi possível realizar o login. Tente novamente mais tarde!')
+                        })
+
+                } else {
+                    openAlert('É necessário ter conexão com a internet para realizar o login.')
+                }
+            })
         }
     }
 

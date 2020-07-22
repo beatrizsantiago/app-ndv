@@ -32,7 +32,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Application" >
+                <Stack.Navigator initialRouteName="Login" >
                     <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
                     <Stack.Screen name="Accounts" component={Accounts} options={{ headerShown: false }} />
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
