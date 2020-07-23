@@ -9,7 +9,7 @@ import { MiddleCenterRow, CenterRow } from '../themes/StyleConstants'
 
 export default Input = ({ label, icon, outlined, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options }) => {
     return (
-        <Container error={error}>
+        <Container error={error} outlined={outlined}>
             {label ?
                 <Label outlined={outlined}>{label}{required ? <Label> *</Label> : null}</Label>
                 : null}
@@ -35,9 +35,9 @@ const Container = styled.View`
     padding: 5px;
     margin-bottom: 10px;
     border-radius: 4px;
-    border-bottom-color: ${props => props.error ? Colors.secondary : Colors.middleGray};
+    border-bottom-color: ${props => props.error ? Colors.secondary : (props.outlined ? Colors.middleGray : Colors.secondary)};
     border-bottom-width: ${props => props.error ? 2 : 1}px;
-    background-color: ${Colors.iceWhite};
+    background-color: ${props => props.outlined ? Colors.iceWhite : Colors.secondaryTransparent1};
 `
 
 const Label = styled.Text`

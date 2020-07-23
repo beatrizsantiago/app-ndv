@@ -15,6 +15,7 @@ import { CenterColumn, MiddleCenterRow, MiddleCenterColumn } from '../themes/Sty
 
 import ImgHome from '../assets/icons/icon_home.png'
 import ImgIntegration from '../assets/icons/icon_integration.png'
+import ImgProfile from '../assets/icons/icon_profile.png'
 import ImgOut from '../assets/icons/icon_out.png'
 import ImgYoutube from '../assets/icons/icon_youtube.png'
 import ImgInsta from '../assets/icons/icon_insta.png'
@@ -92,6 +93,10 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
                     <IconImage source={ImgIntegration} />
                     <Label type={getType('Integration')}>Integração</Label>
                 </Item>
+                <Item onPress={() => navigationScreen('Profile')}>
+                    <IconImage source={ImgProfile} />
+                    <Label type={getType('Profile')}>Meu Perfil</Label>
+                </Item>
                 <Item onPress={() => setShowAlert(true)}>
                     <IconImage source={ImgOut} />
                     <Label>Sair</Label>
@@ -109,10 +114,6 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
                     <IconFace />
                 </TouchableOpacity>
             </Footer>
-            {/* <Box>
-                    <IconMaterial name="window-close" color={Colors.primary} size={35} />
-                </Box> */}
-
             <AlertAnimated show={showAlert} onConfirmPressed={() => logoff()} message="Realmente deseja sair do aplicativo?" onCancelPressed={() => setShowAlert(false)} viewCancelButton={true} textCancel="Não" textConfirm="Sim" />
         </Container>
     )
@@ -210,14 +211,4 @@ const Footer = styled.View`
     justify-content: space-around;
     width: 100%;
     height: 60px;
-`
-
-const Box = styled.TouchableOpacity`
-    ${CenterColumn}
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    top: 0px;
-    right: -50px;
-    background-color: yellow;
 `

@@ -8,7 +8,7 @@ import Fonts from '../themes/Fonts'
 
 import { MiddleCenterRow } from '../themes/StyleConstants'
 
-const TabHeader = ({ currentNavigation, ...props }) => {
+const TabHeader = ({ currentNavigation, color, ...props }) => {
 
     const getName = () => {
         if (currentNavigation == "Home") {
@@ -16,11 +16,14 @@ const TabHeader = ({ currentNavigation, ...props }) => {
             
         } else if (currentNavigation == "Integration") {
             return "Integração"
+
+        } else if (currentNavigation == "Profile") {
+            return "Meu Perfil"
         }
     }
 
     return (
-        <Container>
+        <Container color={color}>
             <Touch onPress={() => props.navigation.toggleDrawer()}>
                 <Icon name="menu" color={Colors.white} size={32} />
             </Touch>
@@ -40,6 +43,7 @@ const Container = styled.View`
     justify-content: space-between;
     width: 100%;
     padding: 10px;
+    background-color: ${props => props.color ? props.color : 'transparent'};
 `
 
 const Touch = styled.TouchableOpacity``

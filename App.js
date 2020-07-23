@@ -15,15 +15,17 @@ import Login from './src/views/Login'
 import Register from './src/views/Register'
 import Home from './src/views/Home'
 import Integration from './src/views/Integration'
+import Profile from './src/views/Profile'
 
 const Stack = createStackNavigator()
 const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Home" backBehavior="initialRoute">
+        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Profile" backBehavior="initialRoute">
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="Integration" component={Integration} />
+            <Drawer.Screen name="Profile" component={Profile} />
         </Drawer.Navigator>
     );
 }
