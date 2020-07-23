@@ -1,13 +1,22 @@
 import React, { useEffect } from 'react'
-import { Text } from 'react-native'
+import { Dimensions } from 'react-native'
 
-import { ContainerCenter } from './styles/MainStyled'
+import TabHeader from '../components/TabHeader'
+import BoxEvents from '../components/BoxEvents'
 
-export default Home = ({ navigation }) => {
+import { Scroll } from './styles/MainStyled'
+import {  } from './styles/HomeStyled'
+
+import Colors from '../themes/Colors'
+
+const windowWidth = Dimensions.get('window').width
+
+export default Home = (props) => {
 
     return (
-        <ContainerCenter>
-            <Text>Home</Text>
-        </ContainerCenter>
+        <Scroll>
+            <TabHeader {...props} colorItems={Colors.secondary} />
+            <BoxEvents marginWidth={windowWidth} />
+        </Scroll>
     )
 }
