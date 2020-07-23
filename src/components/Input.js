@@ -37,7 +37,7 @@ const Container = styled.View`
     border-radius: 4px;
     border-bottom-color: ${props => props.error ? Colors.secondary : (props.outlined ? Colors.middleGray : Colors.secondary)};
     border-bottom-width: ${props => props.error ? 2 : 1}px;
-    background-color: ${props => props.outlined ? Colors.iceWhite : Colors.secondaryTransparent1};
+    background-color: ${props => props.outlined ? Colors.iceWhite : '#fff2f2'};
 `
 
 const Label = styled.Text`

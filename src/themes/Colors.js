@@ -16,6 +16,7 @@ const Colors = {
     blackTransparent4: 'rgba(0, 0, 0, 0.4)',
     blackTransparent5: 'rgba(0, 0, 0, 0.5)',
     blackTransparent6: 'rgba(0, 0, 0, 0.6)',
+    blackTransparent8: 'rgba(0, 0, 0, 0.68)',
     greenTransparent1: 'rgba(0, 176, 12, 0.1)',
     yellowTransparent1: 'rgba(240, 208, 0, 0.1)',
     redTransparent1: 'rgba(255, 0, 0, 0.1)',
