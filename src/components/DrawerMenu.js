@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
-import IconMaterial from 'react-native-vector-icons/MaterialCommunityIcons'
-import IconAnt from 'react-native-vector-icons/AntDesign'
 import { connect } from 'react-redux'
 
 import { setCurrentNavigation } from '../redux/navigation/navigation.actions'
@@ -13,9 +11,14 @@ import AlertAnimated from './AlertAnimated'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
-import { CenterColumn, MiddleCenterRow } from '../themes/StyleConstants'
+import { CenterColumn, MiddleCenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
-import BgDrawer from '../assets/img/bg-drawer-noise.jpg'
+import ImgHome from '../assets/icons/icon_home.png'
+import ImgIntegration from '../assets/icons/icon_integration.png'
+import ImgOut from '../assets/icons/icon_out.png'
+import ImgYoutube from '../assets/icons/icon_youtube.png'
+import ImgInsta from '../assets/icons/icon_insta.png'
+import ImgFace from '../assets/icons/icon_face.png'
 
 const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
 
@@ -74,42 +77,41 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
 
     return (
         <Container>
-            <Background>
-                <Header>
-                    <BoxProfile>
-                        <Profile />
-                    </BoxProfile>
-                    <User>Beatriz Santiago</User>
-                </Header>
-                <Body>
-                    <Item type={getType('Home')} onPress={() => navigationScreen('Home')}>
-                        <IconDrawer name="home" />
-                        <Label>Home</Label>
-                    </Item>
-                    <Item type={getType('Integration')} onPress={() => navigationScreen('Integration')}>
-                        <IconDrawer name="team" />
-                        <Label>Integração</Label>
-                    </Item>
-                    <Item onPress={() => setShowAlert(true)}>
-                        <IconDrawer name="logout" />
-                        <Label>Sair</Label>
-                    </Item>
-                </Body>
-                <Footer>
-                    <TouchableOpacity onPress={() => openYoutube()}>
-                        <Icon name="youtube" />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => openInstagram()}>
-                        <Icon name="instagram" />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => openFacebook()}>
-                        <Icon name="facebook" />
-                    </TouchableOpacity>
-                </Footer>
-                {/* <Box>
+            <Header>
+                <BoxProfile>
+                    <Profile />
+                </BoxProfile>
+                <User>Beatriz Santiago</User>
+            </Header>
+            <Body>
+                <Item onPress={() => navigationScreen('Home')}>
+                    <IconImage source={ImgHome} />
+                    <Label type={getType('Home')}>Home</Label>
+                </Item>
+                <Item onPress={() => navigationScreen('Integration')}>
+                    <IconImage source={ImgIntegration} />
+                    <Label type={getType('Integration')}>Integração</Label>
+                </Item>
+                <Item onPress={() => setShowAlert(true)}>
+                    <IconImage source={ImgOut} />
+                    <Label>Sair</Label>
+                </Item>
+            </Body>
+            <Line />
+            <Footer>
+                <TouchableOpacity onPress={() => openYoutube()}>
+                    <IconTube />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => openInstagram()}>
+                    <IconInsta />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => openFacebook()}>
+                    <IconFace />
+                </TouchableOpacity>
+            </Footer>
+            {/* <Box>
                     <IconMaterial name="window-close" color={Colors.primary} size={35} />
                 </Box> */}
-            </Background>
 
             <AlertAnimated show={showAlert} onConfirmPressed={() => logoff()} message="Realmente deseja sair do aplicativo?" onCancelPressed={() => setShowAlert(false)} viewCancelButton={true} textCancel="Não" textConfirm="Sim" />
         </Container>
@@ -126,11 +128,7 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(DrawerMenu)
 
 const Container = styled.View`
-    width: 100%;
-    flex: 1;
-`
-
-const Background = styled.ImageBackground.attrs({ source: BgDrawer, resizeMode: 'cover', blurRadius: 1.2 })`
+    ${MiddleCenterColumn}
     width: 100%;
     flex: 1;
 `
@@ -139,6 +137,7 @@ const Header = styled.View`
     ${CenterColumn}
     width: 100%;
     height: 160px;
+    background-color: ${Colors.primary};
 `
 
 const BoxProfile = styled.View`
@@ -146,7 +145,7 @@ const BoxProfile = styled.View`
     width: 100px;
     height: 100px;
     margin-bottom: 8px;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: ${Colors.white};
 `
 
@@ -159,7 +158,7 @@ const User = styled.Text`
 const Profile = styled.Image.attrs({ source: { uri: 'https://pm1.narvii.com/6591/13fcc6772236a672a768b9a8433534c13784d88e_hq.jpg' }, resizeMode: 'cover' })`
     width: 90px;
     height: 90px;
-    border-radius: 10px;
+    border-radius: 5px;
 `
 
 const Body = styled.ScrollView`
@@ -171,20 +170,39 @@ const Item = styled.TouchableOpacity`
     ${MiddleCenterRow}
     width: 100%;
     padding: 15px;
-    background-color: ${props => props.type == 1 ? Colors.blackTransparent5 : 'transparent'};
 `
 
-const IconDrawer = styled(IconAnt).attrs(props => ({
-    name: props.name,
-    color: Colors.white,
-    size: 26
-}))``
+const IconImage = styled.Image`
+    width: 30px;
+    height: 30px;
+`
+
+const IconTube = styled.Image.attrs({ source: ImgYoutube })`
+    width: 38px;
+    height: 38px;
+`
+
+const IconInsta = styled.Image.attrs({ source: ImgInsta })`
+    width: 32px;
+    height: 32px;
+`
+
+const IconFace = styled.Image.attrs({ source: ImgFace })`
+    width: 36px;
+    height: 36px;
+`
 
 const Label = styled.Text`
-    color: ${Colors.white};
+    color: ${props => props.type == 1 ? Colors.secondary : Colors.primary};
     font-size: 16px;
     font-family: ${Fonts.bold};
     margin-left: 15px;
+`
+
+const Line = styled.View`
+    width: 68%;
+    height: 0.2px;
+    background-color: ${Colors.primary};
 `
 
 const Footer = styled.View`
@@ -193,12 +211,6 @@ const Footer = styled.View`
     width: 100%;
     height: 60px;
 `
-
-const Icon = styled(IconMaterial).attrs(props => ({
-    name: props.name,
-    color: Colors.white,
-    size: 35
-}))``
 
 const Box = styled.TouchableOpacity`
     ${CenterColumn}

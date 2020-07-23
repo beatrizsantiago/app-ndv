@@ -21,7 +21,7 @@ const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Integration" backBehavior="initialRoute">
+        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Home" backBehavior="initialRoute">
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="Integration" component={Integration} />
         </Drawer.Navigator>
@@ -32,7 +32,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Login" >
+                <Stack.Navigator initialRouteName="Application" >
                     <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
                     <Stack.Screen name="Accounts" component={Accounts} options={{ headerShown: false }} />
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
