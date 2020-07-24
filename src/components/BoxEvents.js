@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
 import moment from 'moment'
 
-import EventService from '../services/EventService'
+import HomeService from '../services/HomeService'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 
 import { MiddleCenterColumn, MiddleCenterRow, CenterColumn } from '../themes/StyleConstants'
 
-export default BoxEvents = ({ }) => {
+export default BoxEvents = () => {
 
     const [allEvents, setAllEvents] = useState({})
     const [activeDay, setActiveDay] = useState(new Date())
@@ -21,7 +21,7 @@ export default BoxEvents = ({ }) => {
 
     const getEvents = () => {
         setLoading(true)
-        EventService.Events()
+        HomeService.Events()
             .then(resp => {
                 setAllEvents(resp)
                 setLoading(false)
@@ -191,7 +191,7 @@ const Box = styled.View`
 `
 
 const BoxImg = styled.View`
-    width: 170px;
+    width: 150px;
     height: 100px;
     border-top-left-radius: 10px;
     border-top-right-radius: 32px;

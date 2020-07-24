@@ -94,4 +94,21 @@ export async function Events(dateInit, dateEnd) {
     }
 }
 
-export default { Events }
+export async function LastPreaching() {
+    try {
+        let data = {
+            banner: 'https://i.ytimg.com/vi/cZPWmvLtVqE/maxresdefault.jpg',
+            url: 'https://www.youtube.com/watch?v=SpaA65M2a_Q',
+            title: 'Qual é a Vontade de Deus?',
+            preacher: 'Ap. Marcos Barriviera',
+        }
+
+        return data
+
+    } catch (error) {
+        console.warn("Error LastPreaching: ", error);
+        throw error
+    }
+}
+
+export default { Events, LastPreaching }

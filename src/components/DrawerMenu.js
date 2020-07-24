@@ -46,9 +46,9 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
     }
 
     const openFacebook = () => {
-        Linking.canOpenURL('fb://page/139996232323232553360774/').then(supported => {
+        Linking.canOpenURL('fb://pages/ndvfortaleza/').then(supported => {
             if (supported) {
-                return Linking.openURL('fb://page/139996232323232553360774/')
+                return Linking.openURL('fb://pages/ndvfortaleza/')
             } else {
                 return Linking.openURL('https://www.facebook.com/ndvfortaleza/')
             }
