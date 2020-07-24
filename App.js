@@ -3,6 +3,9 @@ import React from 'react'
 import { Provider } from 'react-redux'
 import store from './src/redux/store'
 
+import moment from 'moment'
+import 'moment/min/locales'
+
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createDrawerNavigator } from '@react-navigation/drawer'
@@ -31,6 +34,8 @@ function DrawerNavigator() {
 }
 
 export default function App() {
+    moment.locale('pt-br')
+    
     return (
         <Provider store={store}>
             <NavigationContainer>

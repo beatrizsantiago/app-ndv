@@ -1,98 +1,101 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
+import moment from 'moment'
+
+import EventService from '../services/EventService'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 
 import { MiddleCenterColumn, MiddleCenterRow, CenterColumn } from '../themes/StyleConstants'
 
-export default BoxEvents = ({ marginWidth }) => {
+export default BoxEvents = ({ }) => {
 
-    const calculateMargin = () => {
-        let totalMargin = marginWidth - 300
-        let widthMargin = totalMargin / 2
-        return widthMargin
+    const [allEvents, setAllEvents] = useState({})
+    const [activeDay, setActiveDay] = useState(new Date())
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        getEvents()
+    }, [])
+
+    const getEvents = () => {
+        setLoading(true)
+        EventService.Events()
+            .then(resp => {
+                setAllEvents(resp)
+                setLoading(false)
+            })
+            .catch(error => {
+
+            })
+    }
+
+    const showEvents = () => {
+        let valuesWeekday = Object.values(allEvents)
+        let selectEventDay = valuesWeekday.find(event => moment(event.date).format('YYYY-MM-DD') == moment(activeDay).format('YYYY-MM-DD'))
+
+        return selectEventDay?.events.map((event, index) => (
+            <Card key={index}>
+                <BoxHour>
+                    <DateBlack>{event.startTime}</DateBlack>
+                    <DateBlack type={2}>- {event.endTime}</DateBlack>
+                </BoxHour>
+                <Box>
+                    <TitleEvent>{event.name}</TitleEvent>
+                    <BoxImg>
+                        <ImgEvent />
+                    </BoxImg>
+                </Box>
+            </Card>
+        ))
+    }
+
+    const listEventsDay = (day) => {
+        setActiveDay(day)
+    }
+
+    const getType = (date) => {
+        let today = moment(new Date).format('YYYY-MM-DD')
+        let dateParam = moment(date).format('YYYY-MM-DD')
+
+        if (dateParam == today) {
+            return 1
+        } else if (dateParam == moment(activeDay).format('YYYY-MM-DD')) {
+            return 2
+        } else {
+            return 0
+        }
+    }
+
+    const showDates = () => {
+        let keyEvents = Object.keys(allEvents)
+        return keyEvents.map((key, index) => (
+            <BarDate key={index}>
+                <DayGray>{moment(allEvents[key]?.date).format('ddd')}</DayGray>
+                <BoxDate type={getType(allEvents[key]?.date)} onPress={() => listEventsDay(allEvents[key].date)}>
+                    <DayBlack type={getType(allEvents[key]?.date)}>{moment(allEvents[key]?.date).format('DD')}</DayBlack>
+                    {getType(allEvents[key]?.date) == 1 ? <DayBlack type={1}>Hoje</DayBlack> : null}
+                </BoxDate>
+            </BarDate>
+        ))
     }
 
     return (
         <Container>
-            <TextBlack>Julho</TextBlack>
-            <LargeBox>
-                <BarDate>
-                    <DayGray>Seg</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Ter</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Qua</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Qui</DayGray>
-                    <BoxDate type={1}>
-                        <DayBlack type={1}>23</DayBlack>
-                        <DayBlack type={1}>Hoje</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Sex</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Sáb</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-                <BarDate>
-                    <DayGray>Dom</DayGray>
-                    <BoxDate>
-                        <DayBlack>23</DayBlack>
-                    </BoxDate>
-                </BarDate>
-            </LargeBox>
-
-            <ScrollHorizontal>
-                <Body margins={calculateMargin()}>
-                    <Card>
-                        <BoxHour>
-                            <DayBlack>05:30</DayBlack>
-                            <DayBlack type={2}>- 07:00</DayBlack>
-                        </BoxHour>
-                        <Box>
-                            <TitleEvent>Busca e Intercessão</TitleEvent>
-                            <BoxImg>
-                                <ImgEvent />
-                            </BoxImg>
-                        </Box>
-                    </Card>
-                </Body>
-                <Body margins={calculateMargin()}>
-                    <Card>
-                        <BoxHour>
-                            <DayBlack>05:30</DayBlack>
-                            <DayBlack type={2}>- 07:00</DayBlack>
-                        </BoxHour>
-                        <Box>
-                            <TitleEvent>Busca e Intercessão</TitleEvent>
-                            <BoxImg>
-                                <ImgEvent />
-                            </BoxImg>
-                        </Box>
-                    </Card>
-                </Body>
-            </ScrollHorizontal>
+            {
+                !loading ?
+                    <>
+                        <TextBlack>{moment(new Date).format('MMMM')}</TextBlack>
+                        <LargeBox>
+                            {showDates()}
+                        </LargeBox>
+                        <Body>
+                            {showEvents()}
+                        </Body>
+                    </>
+                    : null
+            }
         </Container>
     )
 }
@@ -134,68 +137,61 @@ const DayGray = styled.Text`
 const BoxDate = styled.TouchableOpacity`
     ${MiddleCenterColumn}
     justify-content: space-between;
+    width: 48px;
     height: 56px;
     padding: 8px;
     border-radius: 12px;
-    background-color: ${props => props.type == 1 ? Colors.secondary : 'transparent'};
+    background-color: ${props => props.type == 1 ? Colors.secondary : (props.type == 2 ? Colors.smoothGray : 'transparent')};
 `
 
 const DayBlack = styled.Text`
-    font-size: ${props => props.type == 2 ? 10 : 14}px;
+    font-size: 14px;
     color: ${props => props.type == 1 ? Colors.white : Colors.primary};
     font-family: ${Fonts.bold};
 `
 
-const ScrollHorizontal = styled.ScrollView.attrs({
-    showsHorizontalScrollIndicator: false,
-    contentContainerStyle: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    horizontal: true
-})`
-    width: 100%;
-    background-color: pink;
-`
-
 const Body = styled.View`
     ${CenterColumn}
-    margin: 0px ${props => props.margins}px;
+    width: 100%;
 `
 
 const Card = styled.View`
     ${MiddleCenterRow}
     justify-content: space-between;
-    width: 300px;
+    width: 95%;
     padding: 10px 0px;
-    border: solid 1px ${Colors.black};
 `
 
 const BoxHour = styled.View`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 60px;
-    height: 50px;
-    padding: 5px;
-    border-left-width: 4px;
+    width: 80px;
+    padding: 10px;
+    border-left-width: 5px;
     border-left-color: ${Colors.secondary};
+`
+
+const DateBlack = styled.Text`
+    font-size: ${props => props.type == 2 ? 14 : 18}px;
+    color: ${Colors.primary};
+    font-family: ${Fonts.bold};
 `
 
 const Box = styled.View`
     ${MiddleCenterRow}
     justify-content: space-between;
-    width: 230px;
+    flex: 1;
     height: 100px;
     border-top-left-radius: 10px;
     border-top-right-radius: 32px;
     border-bottom-left-radius: 32px;
     border-bottom-right-radius: 10px;
-    background-color: ${Colors.smoothGray};
+    background-color: ${Colors.backgroundGray};
 `
 
 const BoxImg = styled.View`
-    width: 120px;
+    width: 170px;
     height: 100px;
     border-top-left-radius: 10px;
     border-top-right-radius: 32px;
