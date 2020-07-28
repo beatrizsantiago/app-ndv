@@ -14,6 +14,9 @@ const TabHeader = ({ currentNavigation, color, colorItems, ...props }) => {
         if (currentNavigation == "Home") {
             return "Seja bem-vindo(a)"
 
+        } else if (currentNavigation == "SearchCap") {
+            return "Pesquisar Cap"
+
         } else if (currentNavigation == "Integration") {
             return "Integração"
 

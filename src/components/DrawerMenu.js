@@ -14,6 +14,7 @@ import Fonts from '../themes/Fonts'
 import { CenterColumn, MiddleCenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
 import ImgHome from '../assets/icons/icon_home.png'
+import ImgSearch from '../assets/icons/icon_search.png'
 import ImgIntegration from '../assets/icons/icon_integration.png'
 import ImgProfile from '../assets/icons/icon_profile.png'
 import ImgOut from '../assets/icons/icon_out.png'
@@ -88,6 +89,10 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
                 <Item onPress={() => navigationScreen('Home')}>
                     <IconImage source={ImgHome} />
                     <Label type={getType('Home')}>Home</Label>
+                </Item>
+                <Item onPress={() => navigationScreen('SearchCap')}>
+                    <IconImage source={ImgSearch} />
+                    <Label type={getType('SearchCap')}>Pesquisar Cap</Label>
                 </Item>
                 <Item onPress={() => navigationScreen('Integration')}>
                     <IconImage source={ImgIntegration} />

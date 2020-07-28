@@ -2,7 +2,7 @@ export async function Events(dateInit, dateEnd) {
     try {
         let data = {
             monday: {
-                date: '2020-07-20T00:00:00',
+                date: '2020-07-27T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7b980e352656d73ab",
@@ -13,7 +13,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             tuesday: {
-                date: '2020-07-21T00:00:00',
+                date: '2020-07-28T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7eac737d950c2bba4",
@@ -24,7 +24,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             wednesday: {
-                date: '2020-07-22T00:00:00',
+                date: '2020-07-29T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7da784ad41a8f9db3",
@@ -41,7 +41,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             thursday: {
-                date: '2020-07-23T00:00:00',
+                date: '2020-07-30T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7c655fce2b7571ecd",
@@ -52,7 +52,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             friday: {
-                date: '2020-07-24T00:00:00',
+                date: '2020-07-31T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7a2bf090f0937d3be",
@@ -63,7 +63,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             saturday: {
-                date: '2020-07-25T00:00:00',
+                date: '2020-08-01T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7594c31c3f8d41567",
@@ -74,7 +74,7 @@ export async function Events(dateInit, dateEnd) {
                 ]
             },
             sunday: {
-                date: '2020-07-26T00:00:00',
+                date: '2020-08-02T00:00:00',
                 events: [
                     {
                         "id": "5f1a07d7136568bf98fcb639",

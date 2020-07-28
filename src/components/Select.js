@@ -6,9 +6,9 @@ import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 import { MiddleCenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
-export default Select = ({ datas = [], label, type = 'inline', selectedValue, onValueChange, enabled, error, required }) => {
+export default Select = ({ datas = [], label, type = 'inline', selectedValue, onValueChange, enabled, error, required, rounded }) => {
     return (
-        <Container error={error} type={type}>
+        <Container error={error} type={type} rounded={rounded}>
             <Label type={type}>{label}{required ? <Label> *</Label> : null}</Label>
             <InputSelect selectedValue={selectedValue} onValueChange={onValueChange} enabled={enabled} type={type}>
                 {
@@ -30,7 +30,7 @@ const Container = styled.View`
     border-radius: 4px;
     border-bottom-color: ${props => props.error ? Colors.secondary : Colors.middleGray};
     border-bottom-width: ${props => props.error ? 2 : 1}px;
-    background-color: ${Colors.iceWhite};
+    background-color: ${props => props.rounded ? Colors.white : Colors.iceWhite};
 `
 
 const Label = styled.Text`
