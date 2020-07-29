@@ -7,7 +7,7 @@ export const BoxGray = styled.View`
     ${MiddleCenterColumn}
     width: 100%;
     flex: 1;
-    padding: 15px;
+    padding: 12px;
     background-color: ${Colors.backgroundGray};
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;

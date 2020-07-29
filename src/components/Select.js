@@ -27,9 +27,9 @@ const Container = styled.View`
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-    border-radius: 4px;
+    border-radius: ${props => props.rounded ? 8 : 4}px; 
     border-bottom-color: ${props => props.error ? Colors.secondary : Colors.middleGray};
-    border-bottom-width: ${props => props.error ? 2 : 1}px;
+    border-bottom-width: ${props => props.error ? 2 : (props.rounded ? 0 : 1)}px;
     background-color: ${props => props.rounded ? Colors.white : Colors.iceWhite};
 `
 
