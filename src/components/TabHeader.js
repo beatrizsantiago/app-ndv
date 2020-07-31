@@ -20,6 +20,9 @@ const TabHeader = ({ currentNavigation, color, colorItems, ...props }) => {
         } else if (currentNavigation == "Integration") {
             return "Integração"
 
+        } else if (currentNavigation == "Offer") {
+            return "Ofertas"
+
         } else if (currentNavigation == "Profile") {
             return "Meu Perfil"
         }

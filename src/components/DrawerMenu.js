@@ -17,6 +17,7 @@ import ImgHome from '../assets/icons/icon_home.png'
 import ImgSearch from '../assets/icons/icon_search.png'
 import ImgIntegration from '../assets/icons/icon_integration.png'
 import ImgProfile from '../assets/icons/icon_profile.png'
+import ImgOffer from '../assets/icons/icon_offer.png'
 import ImgOut from '../assets/icons/icon_out.png'
 import ImgYoutube from '../assets/icons/icon_youtube.png'
 import ImgInsta from '../assets/icons/icon_insta.png'
@@ -97,6 +98,10 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
                 <Item onPress={() => navigationScreen('Integration')}>
                     <IconImage source={ImgIntegration} />
                     <Label type={getType('Integration')}>Integração</Label>
+                </Item>
+                <Item onPress={() => navigationScreen('Offer')}>
+                    <IconImage source={ImgOffer} />
+                    <Label type={getType('Integration')}>Ofertas</Label>
                 </Item>
                 <Item onPress={() => navigationScreen('Profile')}>
                     <IconImage source={ImgProfile} />

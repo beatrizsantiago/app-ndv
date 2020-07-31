@@ -7,9 +7,9 @@ import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 import { MiddleCenterRow, CenterRow } from '../themes/StyleConstants'
 
-export default Input = ({ label, icon, outlined, rounded, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options }) => {
+export default Input = ({ label, icon, outlined, rounded, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options, widthContainer, multiline = false }) => {
     return (
-        <Container error={error} outlined={outlined} rounded={rounded}>
+        <Container error={error} outlined={outlined} rounded={rounded} widthContainer={widthContainer}>
             {label ?
                 <Label outlined={outlined}>{label}{required ? <Label> *</Label> : null}</Label>
                 : null}
@@ -18,7 +18,7 @@ export default Input = ({ label, icon, outlined, rounded, value, onChangeText, e
                 masked ?
                     <InputMask value={value} onChangeText={onChangeText} type={typeMask} options={options} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} />
                     :
-                    <InputText value={value} onChangeText={onChangeText} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} />
+                    <InputText value={value} onChangeText={onChangeText} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} multiline={multiline} />
             }
 
             {icon ?
@@ -31,7 +31,7 @@ export default Input = ({ label, icon, outlined, rounded, value, onChangeText, e
 const Container = styled.View`
     ${MiddleCenterRow}
     justify-content: space-between;
-    width: 100%;
+    width: ${props => props.widthContainer ? props.widthContainer : 100}%;
     padding: ${props => props.rounded ? 8 : 5}px;
     margin-bottom: 10px;
     border-radius: ${props => props.rounded ? 8 : 4}px; 
