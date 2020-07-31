@@ -5,20 +5,20 @@ import { TextInputMask } from 'react-native-masked-text'
 
 import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
-import { MiddleCenterRow, CenterRow } from '../themes/StyleConstants'
+import { MiddleCenterRow, CenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
-export default Input = ({ label, icon, outlined, rounded, value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options, widthContainer, multiline = false }) => {
+export default Input = ({ label, icon, outlined, rounded, styleType = 'inline', value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options, widthContainer, multiline = false, onBlur, onFocus }) => {
     return (
-        <Container error={error} outlined={outlined} rounded={rounded} widthContainer={widthContainer}>
+        <Container error={error} outlined={outlined} rounded={rounded} widthContainer={widthContainer} styleType={styleType}>
             {label ?
-                <Label outlined={outlined}>{label}{required ? <Label> *</Label> : null}</Label>
+                <Label outlined={outlined} styleType={styleType}>{label}{required ? <Label> *</Label> : null}</Label>
                 : null}
 
             {
                 masked ?
-                    <InputMask value={value} onChangeText={onChangeText} type={typeMask} options={options} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} />
+                    <InputMask value={value} onChangeText={onChangeText} type={typeMask} options={options} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} styleType={styleType} onBlur={onBlur} onFocus={onFocus} />
                     :
-                    <InputText value={value} onChangeText={onChangeText} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} multiline={multiline} />
+                    <InputText value={value} onChangeText={onChangeText} label={label} icon={icon} textAlign={textAlign} outlined={outlined} rounded={rounded} maxLength={maxLength} placeholder={placeholder} editable={editable} secureTextEntry={secureTextEntry} keyboardType={keyboardType} multiline={multiline} styleType={styleType} onBlur={onBlur} onFocus={onFocus} />
             }
 
             {icon ?
@@ -29,7 +29,7 @@ export default Input = ({ label, icon, outlined, rounded, value, onChangeText, e
 }
 
 const Container = styled.View`
-    ${MiddleCenterRow}
+    ${props => props.styleType == 'inline' ? MiddleCenterRow : MiddleCenterColumn}
     justify-content: space-between;
     width: ${props => props.widthContainer ? props.widthContainer : 100}%;
     padding: ${props => props.rounded ? 8 : 5}px;
@@ -44,19 +44,20 @@ const Label = styled.Text`
     color: ${props => props.outlined ? Colors.primary : Colors.secondary};
     font-size: 14px;
     font-family: ${Fonts.semiBold};
-    width: 30%;
     padding-right: 5px;
+    width: ${props => props.styleType == 'inline' ? 30 : 100}%;
+    text-align: ${props => props.styleType == 'inline' ? 'left' : 'center'};
 `
 
 const PropsInput = css`
-    width: ${props => props.label && props.icon ? 58 : (props.label ? 70 : (props.icon ? 88 : 100))}%;
-    height: 100%;
+    width: ${props => props.styleType == 'inline' ? (props.label && props.icon ? 58 : (props.label ? 70 : (props.icon ? 88 : 100))) : 100}%;
+    ${props => props.styleType == 'inline' ? 'height: 100%;' :'height: 28px;'}
     margin: 0px;
     padding: 0px;
     font-size: 16px;
-    font-family: ${Fonts.bold};
+    font-family: ${Fonts.bold}; 
     color: ${props => props.outlined || props.rounded ? Colors.primary : Colors.secondary};
-    text-align: ${props => props.textAlign ? props.textAlign : 'left'};
+    text-align: ${props => props.textAlign ? props.textAlign : (props.styleType != 'inline' ? 'center' : 'left')};
 `
 
 const InputMask = styled(TextInputMask)`

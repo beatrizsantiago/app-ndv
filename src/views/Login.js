@@ -40,6 +40,7 @@ export default Login = ({ navigation }) => {
                     UserService.Login(email, password)
                         .then(() => {
                             setLoading(false)
+                            navigation.reset({ routes: [{ name: 'Application' }] })
                         })
                         .catch(error => {
                             openAlert('Não foi possível realizar o login. Tente novamente mais tarde!')

@@ -20,6 +20,7 @@ import Home from './src/views/Home'
 import SearchCap from './src/views/SearchCap'
 import Integration from './src/views/Integration'
 import Offer from './src/views/Offer'
+import OfferCreditCard from './src/views/OfferCreditCard'
 import Profile from './src/views/Profile'
 
 const Stack = createStackNavigator()
@@ -27,11 +28,12 @@ const Drawer = createDrawerNavigator()
 
 function DrawerNavigator() {
     return (
-        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Offer" backBehavior="initialRoute">
+        <Drawer.Navigator drawerContent={(props) => <DrawerMenu {...props} />} initialRouteName="Home" backBehavior="initialRoute">
             <Drawer.Screen name="Home" component={Home} />
             <Drawer.Screen name="SearchCap" component={SearchCap} />
             <Drawer.Screen name="Integration" component={Integration} />
             <Drawer.Screen name="Offer" component={Offer} />
+            <Drawer.Screen name="OfferCreditCard" component={OfferCreditCard} />
             <Drawer.Screen name="Profile" component={Profile} />
         </Drawer.Navigator>
     );
@@ -43,7 +45,7 @@ export default function App() {
     return (
         <Provider store={store}>
             <NavigationContainer>
-                <Stack.Navigator initialRouteName="Application" >
+                <Stack.Navigator initialRouteName="Splash" >
                     <Stack.Screen name="Splash" component={Splash} options={{ headerShown: false }} />
                     <Stack.Screen name="Accounts" component={Accounts} options={{ headerShown: false }} />
                     <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
