@@ -1,4 +1,5 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import styled, { css } from 'styled-components/native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import { TextInputMask } from 'react-native-masked-text'
@@ -7,7 +8,7 @@ import Colors from '../themes/Colors'
 import Fonts from '../themes/Fonts'
 import { MiddleCenterRow, CenterRow, MiddleCenterColumn } from '../themes/StyleConstants'
 
-export default Input = ({ label, icon, outlined, rounded, styleType = 'inline', value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options, widthContainer, multiline = false, onBlur, onFocus }) => {
+export default Input = ({ label, icon, outlined, rounded, styleType = 'inline', value, onChangeText, editable, maxLength, placeholder, textAlign, secureTextEntry, error, required, keyboardType, masked, typeMask, options, widthContainer, multiline = false, onBlur, onFocus, pressIcon }) => {
     return (
         <Container error={error} outlined={outlined} rounded={rounded} widthContainer={widthContainer} styleType={styleType}>
             {label ?
@@ -22,7 +23,16 @@ export default Input = ({ label, icon, outlined, rounded, styleType = 'inline', 
             }
 
             {icon ?
-                <BoxIcon>{<Icon name={icon} size={30} color={Colors.middleGray} />}</BoxIcon>
+                <BoxIcon>
+                    {
+                        icon == 'password' ?
+                            <TouchableOpacity onPress={pressIcon}>
+                                <Icon name={secureTextEntry == true ? 'eye' : 'eye-off'} size={30} color={Colors.middleGray} />
+                            </TouchableOpacity>
+                            :
+                            <Icon name={icon} size={30} color={Colors.middleGray} />
+                    }
+                </BoxIcon>
                 : null}
         </Container>
     )
@@ -51,7 +61,7 @@ const Label = styled.Text`
 
 const PropsInput = css`
     width: ${props => props.styleType == 'inline' ? (props.label && props.icon ? 58 : (props.label ? 70 : (props.icon ? 88 : 100))) : 100}%;
-    ${props => props.styleType == 'inline' ? 'height: 100%;' :'height: 28px;'}
+    ${props => props.styleType == 'inline' ? 'height: 100%;' : 'height: 28px;'}
     margin: 0px;
     padding: 0px;
     font-size: 16px;

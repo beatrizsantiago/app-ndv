@@ -115,7 +115,7 @@ export default OfferCreditCard = (props) => {
             </Header>
 
             <Box>
-                <Input label="Número do Cartão" value={numberCard} onChangeText={text => setNumberCard(text)} editable={!loading} styleType="column" typeMask={'credit-card'} options={{ obfuscated: false }} masked outlined />
+                <Input label="Número do Cartão" value={numberCard} onChangeText={text => setNumberCard(text)} editable={!loading} styleType="column" keyboardType="numeric" typeMask={'credit-card'} options={{ obfuscated: false }} masked outlined />
                 <Row>
                     <Input label="Validade" value={validity} onChangeText={text => setValidity(text)} editable={!loading} styleType="column" widthContainer={49} typeMask={'custom'} options={{ mask: '99/99' }} keyboardType="numeric" masked outlined />
                     <Input label="CCV" value={code} onChangeText={text => setCode(text)} editable={!loading} styleType="column" widthContainer={49} typeMask={'custom'} options={{ mask: '999' }} onFocus={() => flippingBack()} onBlur={() => flippingFront()} keyboardType="numeric" outlined />

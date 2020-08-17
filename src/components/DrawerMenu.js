@@ -101,7 +101,7 @@ const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
                 </Item>
                 <Item onPress={() => navigationScreen('Offer')}>
                     <IconImage source={ImgOffer} />
-                    <Label type={getType('Integration')}>Ofertas</Label>
+                    <Label type={getType('Offer')}>Ofertas</Label>
                 </Item>
                 <Item onPress={() => navigationScreen('Profile')}>
                     <IconImage source={ImgProfile} />

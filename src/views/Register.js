@@ -16,7 +16,9 @@ export default Register = ({ navigation }) => {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [securityPassword, setSecurityPassword] = useState(true)
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [securityConfirmPassword, setSecurityConfirmPassword] = useState(true)
     const [showAlert, setShowAlert] = useState(false)
     const [messageAlert, setMessageAlert] = useState('')
     const [loading, setLoading] = useState(false)
@@ -93,11 +95,11 @@ export default Register = ({ navigation }) => {
                 <Title>Cadastre-se</Title>
             </Header>
             <Box>
-                <Input label="Nome Completo" editable={!loading} outlined />
-                <Input label="Telefone" editable={!loading} outlined />
-                <Input label="E-mail" editable={!loading} outlined />
-                <Input label="Senha" editable={!loading} icon="eye" outlined />
-                <Input label="Confirmar Senha" editable={!loading} icon="eye" outlined />
+                <Input label="Nome Completo" value={fullName} onChangeText={text => setFullName(text)} editable={!loading} maxLength={200} outlined />
+                <Input label="Telefone" value={phone} onChangeText={text => setPhone(text)} editable={!loading} typeMask="cel-phone" options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }} masked outlined />
+                <Input label="E-mail" value={email} onChangeText={text => setEmail(text)} editable={!loading} maxLength={100} outlined />
+                <Input label="Senha" value={password} onChangeText={text => setPassword(text)} editable={!loading} secureTextEntry={securityPassword} pressIcon={() => setSecurityPassword(!securityPassword)} icon="password" maxLength={12} outlined />
+                <Input label="Confirmar Senha" value={confirmPassword} onChangeText={text => setConfirmPassword(text)} editable={!loading} secureTextEntry={securityConfirmPassword} pressIcon={() => setSecurityConfirmPassword(!securityConfirmPassword)} icon="password" maxLength={12} outlined />
 
                 <RowButtons>
                     <Button title="Voltar" onPress={() => navigation.goBack()} disabled={loading} width={48} outlined />

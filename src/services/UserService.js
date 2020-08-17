@@ -1,27 +1,40 @@
+import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
+import StoreKeys from '../config/StoreKeys'
+
 export async function Login(email, password) {
     try {
         console.warn(email, password);
-        return true
+        let login = await axios.post('account/login', { email, password })
+        let { accessToken, expiration } = login.data
+
+        await AsyncStorage.setItem(StoreKeys.UserToken, accessToken)
+        await AsyncStorage.setItem(StoreKeys.SessionExpiration, expiration)
+
+        return accessToken
 
     } catch (error) {
-        console.warn("Error Login", error);
+        console.warn("Error Login", error.message);
         throw error
     }
 }
 
-export async function Register(fullname, phone, email, password, confirmPassword) {
+export async function Register(name, phone, email, password, confirmPassword) {
     try {
-        console.warn(fullname, phone, email, password, confirmPassword);
+        console.warn(name, phone, email, password, confirmPassword);
+        await axios.post('account/register', { name, phone, email, password, confirmPassword })
         return true
 
     } catch (error) {
-        console.warn("Error Register", error);
+        console.warn("Error Register", error.message);
         throw error
     }
 }
 
 export async function Logout() {
     try {
+        await AsyncStorage.removeItem(StoreKeys.UserToken)
+        await AsyncStorage.removeItem(StoreKeys.SessionExpiration)
         
         return true
 

@@ -13,7 +13,7 @@ export default Splash = ({ navigation }) => {
 
         Animated.timing(scaleValue, {
             toValue: 174,
-            duration: 2000,
+            duration: 1000,
             easing: Easing.ease,
             useNativeDriver: false,
         }).start()
@@ -23,7 +23,7 @@ export default Splash = ({ navigation }) => {
         animate()
         setTimeout(() => {
             navigation.reset({ routes: [{ name: 'Accounts' }] })
-        }, 2000);
+        }, 1000);
     }, [])
 
     return (
