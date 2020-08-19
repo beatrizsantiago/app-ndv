@@ -1,56 +1,33 @@
+import axios from 'axios'
+import useSWR from 'swr'
+
 export async function GetLifes() {
     try {
-        let datas = [
-            {
-                "id": "5f15e5f011bef22b0510c8b4",
-                "name": "Good Aguirre Contreras",
-                "phone": "+55 (928) 409-3190"
-            },
-            {
-                "id": "5f15e5f04d64bb4700ea734f",
-                "name": "Ines Copeland Knight",
-                "phone": "+55 (988) 566-3560"
-            },
-            {
-                "id": "5f15e5f00bb0be15571a70b3",
-                "name": "Armstrong Wilder Johnston",
-                "phone": "+55 (867) 498-2960"
-            },
-            {
-                "id": "5f15e5f0202896dbfa491915",
-                "name": "Mayra Hendrix Daniels",
-                "phone": "+55 (801) 438-2917"
-            },
-            {
-                "id": "5f15e5f0e1123ff6f362957c",
-                "name": "Gale Snider Justice",
-                "phone": "+55 (868) 559-3684"
-            }
-        ]
-
-        return datas
+        let lifes = await axios.get('lifes')
+        return lifes.data
 
     } catch (error) {
-        console.warn("Error GetLifes", error);
-        throw error
+        console.warn("Error GetLifes", error.response);
+        throw error.response
     }
 }
 
-export async function SendFeedback(idLife, feedback) {
+export async function SendFeedback(lifeId, content) {
     try {
-        console.warn(idLife, feedback);
+        console.warn(lifeId, content);
+        await axios.post('lifes/new-feedback', { lifeId, content })
         return true
 
     } catch (error) {
-        console.warn("Error SendFeedback", error);
-        throw error
+        console.warn("Error SendFeedback", error.response);
+        throw error.response
     }
 }
 
 
 export async function RegisterNewLife(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        console.warn(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister);
+        await axios.post('lifes', { fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister })
         return true
 
     } catch (error) {

@@ -4,7 +4,6 @@ import StoreKeys from '../config/StoreKeys'
 
 export async function Login(email, password) {
     try {
-        console.warn(email, password);
         let login = await axios.post('account/login', { email, password })
         let { accessToken, expiration } = login.data
 
@@ -21,7 +20,6 @@ export async function Login(email, password) {
 
 export async function Register(name, phone, email, password, confirmPassword) {
     try {
-        console.warn(name, phone, email, password, confirmPassword);
         await axios.post('account/register', { name, phone, email, password, confirmPassword })
         return true
 

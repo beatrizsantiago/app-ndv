@@ -1,6 +1,9 @@
 import React, { useEffect } from 'react'
 import { Animated, Easing } from 'react-native'
 
+import AsyncStorage from '@react-native-community/async-storage'
+import StoreKeys from '../config/StoreKeys'
+
 import { ContainerCenter } from './styles/MainStyled'
 import { BoxLogo, Logo, NameChurch, Progress, Fill } from './styles/AuthStyled'
 
@@ -19,11 +22,19 @@ export default Splash = ({ navigation }) => {
         }).start()
     }
 
+    const verifyToken = async () => {
+        let token = await AsyncStorage.getItem(StoreKeys.UserToken)
+        if (token) {
+            setTimeout(() => navigation.reset({ routes: [{ name: 'Application' }] }), 800)
+
+        } else {
+            setTimeout(() => navigation.reset({ routes: [{ name: 'Accounts' }] }), 800)
+        }
+    }
+
     useEffect(() => {
         animate()
-        setTimeout(() => {
-            navigation.reset({ routes: [{ name: 'Accounts' }] })
-        }, 1000);
+        verifyToken()
     }, [])
 
     return (

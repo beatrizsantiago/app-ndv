@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import moment from 'moment'
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -32,7 +33,7 @@ export default RegisterLife = ({ navigation }) => {
     }
 
     const sendDatas = () => {
-        IntegrationService.RegisterNewLife(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister)
+        IntegrationService.RegisterNewLife(fullName, typeConversion, phone, email, moment(birthday, "DD/MM/YYYY").format(), baptismOtherChurch ? true : false, baptismToday ? true : false, baptismMinister)
             .then(() => {
                 openAlert('Cadastro realizado com sucesso.')
                 setLoading(false)

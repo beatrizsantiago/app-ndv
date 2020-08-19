@@ -51,8 +51,13 @@ export default ModalFeedback = ({ open, onClosedPress, datas = {} }) => {
                             setSuccess(true)
                             openAlert('Feedback enviado com sucesso.')
                         })
-                        .catch(error => {
-                            openAlert('Não foi possível enviar seu feedback. Tente novamente mais tarde.')
+                        .catch(async error => {
+                            if (error.status == 401) {
+                                await UserService.Logout()
+                                navigation.reset({ routes: [{ name: 'Login', params: { error: 401 }, }] })
+                            } else {
+                                openAlert('Não foi possível enviar seu feedback. Tente novamente mais tarde.')
+                            }
                         })
 
                 } else {

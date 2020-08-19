@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import NetInfo from "@react-native-community/netinfo"
 
 import IntegrationService from '../services/IntegrationService'
+import UserService from '../services/UserService'
 
 import Loading from '../components/Loading'
 import TabHeader from '../components/TabHeader'
@@ -37,6 +38,12 @@ export default ListLifes = (props) => {
                         setListLifes(resp)
                         setLoading(false)
                     })
+                    .catch(async error => {
+                        if (error.status == 401) {
+                            await UserService.Logout()
+                            navigation.reset({ routes: [{ name: 'Login', params: { error: 401 }, }] })
+                        }
+                    })
 
             } else {
                 setShowAlert(true)
@@ -58,7 +65,7 @@ export default ListLifes = (props) => {
 
     const showLifes = () => listLifes.map((life, index) => (
         <Line key={index} onPress={() => sendFeedback(life)}>
-            <TextLabel>{life.name}</TextLabel>
+            <TextLabel>{life.fullName}</TextLabel>
             <TextLabel>{life.phone}</TextLabel>
         </Line>
     ))

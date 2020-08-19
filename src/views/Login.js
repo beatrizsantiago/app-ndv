@@ -10,13 +10,21 @@ import AlertAnimated from '../components/AlertAnimated'
 import { Container } from './styles/MainStyled'
 import { Background, Header, LogoWhite, Title, Box, TextGray, TextRed, Touch, Line } from './styles/AuthStyled'
 
-export default Login = ({ navigation }) => {
+export default Login = ({ navigation, route }) => {
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [securityPassword, setSecurityPassword] = useState(true)
     const [showAlert, setShowAlert] = useState(false)
     const [messageAlert, setMessageAlert] = useState('')
     const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        if (route.params && route.params.error == 401) {
+            openAlert(I18next.t('Sua sessão expirou. Por favor, faça login novamente.'))
+        }
+    }, [])
+
 
     const openAlert = message => {
         setMessageAlert(message)
@@ -61,8 +69,8 @@ export default Login = ({ navigation }) => {
                 <Title>Login</Title>
             </Header>
             <Box>
-                <Input value={email} onChangeText={text => setEmail(text)} icon="account-circle-outline" outlined />
-                <Input inputKey={'password'} value={password} onChangeText={text => setPassword(text)} icon="form-textbox-password" outlined secureTextEntry />
+                <Input label="E-mail" value={email} onChangeText={text => setEmail(text)} outlined />
+                <Input label="Senha" inputKey="password" value={password} onChangeText={text => setPassword(text)} secureTextEntry={securityPassword} pressIcon={() => setSecurityPassword(!securityPassword)} icon="password" maxLength={12} outlined />
                 <Button title="Entrar" width={80} onPress={() => handlePressLogin()} loading={loading} />
             </Box>
             <Line>
