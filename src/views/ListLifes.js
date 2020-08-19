@@ -41,7 +41,7 @@ export default ListLifes = (props) => {
                     .catch(async error => {
                         if (error.status == 401) {
                             await UserService.Logout()
-                            navigation.reset({ routes: [{ name: 'Login', params: { error: 401 }, }] })
+                            props.navigation.reset({ routes: [{ name: 'Login', params: { error: 401 }, }] })
                         }
                     })
 
@@ -94,7 +94,7 @@ export default ListLifes = (props) => {
                         {showLifes()}
                     </>
             }
-            <ModalFeedback open={showModal} onClosedPress={() => setShowModal(false)} datas={selectLife} />
+            <ModalFeedback open={showModal} onClosedPress={() => setShowModal(false)} datas={selectLife} navigation={props.navigation} />
             <AlertAnimated show={showAlert} onConfirmPressed={() => setShowAlert(false)} message="É necessário ter conexão com a internet para continuar." />
         </Scroll>
     )

@@ -3,6 +3,7 @@ import styled from 'styled-components/native'
 import NetInfo from "@react-native-community/netinfo"
 
 import IntegrationService from '../services/IntegrationService'
+import UserService from '../services/UserService'
 
 import Button from './Button'
 import AlertAnimated from './AlertAnimated'
@@ -12,7 +13,7 @@ import Fonts from '../themes/Fonts'
 
 import { CenterColumn, MiddleCenterColumn, MiddleCenterRow } from '../themes/StyleConstants'
 
-export default ModalFeedback = ({ open, onClosedPress, datas = {} }) => {
+export default ModalFeedback = ({ open, onClosedPress, datas = {}, navigation }) => {
 
     const [feedback, setFeedback] = useState('')
     const [showAlert, setShowAlert] = useState(false)
