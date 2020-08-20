@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import moment from 'moment'
+import NetInfo from "@react-native-community/netinfo"
 
 import IntegrationService from '../services/IntegrationService'
 
@@ -9,7 +9,7 @@ import Select from '../components/Select'
 import AlertAnimated from '../components/AlertAnimated'
 
 import { Container } from './styles/MainStyled'
-import { Title, Row, MiddleRow, BoxButtons } from './styles/RegisterLifeStyled'
+import { Title, Row, MiddleRow } from './styles/RegisterLifeStyled'
 
 export default RegisterLife = ({ navigation }) => {
 
@@ -17,7 +17,7 @@ export default RegisterLife = ({ navigation }) => {
     const [typeConversion, setTypeConversion] = useState(1)
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
-    const [birthday, setBirthday] = useState('')
+    const [age, setAge] = useState('')
     const [baptismOtherChurch, setBaptismOtherChurch] = useState(0)
     const [baptismToday, setBaptismToday] = useState(0)
     const [baptismMinister, setBaptismMinister] = useState('')
@@ -33,22 +33,29 @@ export default RegisterLife = ({ navigation }) => {
     }
 
     const sendDatas = () => {
-        IntegrationService.RegisterNewLife(fullName, typeConversion, phone, email, moment(birthday, "DD/MM/YYYY").format(), baptismOtherChurch ? true : false, baptismToday ? true : false, baptismMinister)
-            .then(() => {
-                openAlert('Cadastro realizado com sucesso.')
-                setLoading(false)
-                setFullName('')
-                setTypeConversion(1)
-                setPhone('')
-                setEmail('')
-                setBirthday('')
-                setBaptismOtherChurch(0)
-                setBaptismToday(0)
-                setBaptismMinister('')
-            })
-            .catch(error => {
-                setLoading(false)
-            })
+        NetInfo.fetch().then(state => {
+            if (state.isConnected) {
+                IntegrationService.RegisterNewLife(fullName, typeConversion, phone, email, parseInt(age), baptismOtherChurch ? true : false, baptismToday ? true : false, baptismMinister)
+                    .then(() => {
+                        openAlert('Cadastro realizado com sucesso.')
+                        setLoading(false)
+                        setFullName('')
+                        setTypeConversion(1)
+                        setPhone('')
+                        setEmail('')
+                        setAge('')
+                        setBaptismOtherChurch(0)
+                        setBaptismToday(0)
+                        setBaptismMinister('')
+                    })
+                    .catch(error => {
+                        setLoading(false)
+                        openAlert('Não foi possível salvar os dados. Não feche o aplicativo, entre em contado com o líder da integração.')
+                    })
+            } else {
+                openAlert('É necessário ter conexão com a internet para realizar salvar os dados.')
+            }
+        })
     }
 
     const handlePressRegister = () => {
@@ -95,7 +102,7 @@ export default RegisterLife = ({ navigation }) => {
             />
             <Input label="Telefone" value={phone} onChangeText={text => setPhone(text)} editable={!loading} error={findError('phone')} typeMask={'cel-phone'} options={{ maskType: 'BRL', withDDD: true, dddMask: '(99) ' }} keyboardType="numeric" masked outlined required />
             <Input label="E-mail" value={email} onChangeText={text => setEmail(text)} editable={!loading} keyboardType="email-address" outlined />
-            <Input label="Data de nascimento" value={birthday} onChangeText={text => setBirthday(text)} editable={!loading} typeMask="custom" options={{ mask: '99/99/9999' }} keyboardType="numeric" outlined masked />
+            <Input label="Idade" value={age} onChangeText={text => setAge(text)} editable={!loading} keyboardType="numeric" outlined />
             <Row>
                 <MiddleRow>
                     <Select
@@ -126,10 +133,7 @@ export default RegisterLife = ({ navigation }) => {
             </Row>
             {baptismToday ? <Input label="Ministro do batismo" value={baptismMinister} onChangeText={text => setBaptismMinister(text)} error={findError('minister')} editable={!loading} outlined required /> : null}
 
-            <BoxButtons>
-                <Button title="Salvar" onPress={() => handlePressRegister()} width={45} outlined />
-                <Button title="Enviar" onPress={() => handlePressRegister()} width={45} loading={loading} disabled={loading} />
-            </BoxButtons>
+            <Button title="Enviar" onPress={() => handlePressRegister()} loading={loading} disabled={loading} />
 
             <AlertAnimated show={showAlert} onConfirmPressed={() => setShowAlert(false)} message={messageAlert} />
         </Container>

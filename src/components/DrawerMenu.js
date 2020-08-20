@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
 import styled from 'styled-components/native'
 import { connect } from 'react-redux'
@@ -26,6 +26,12 @@ import ImgFace from '../assets/icons/icon_face.png'
 const DrawerMenu = ({ currentNavigation, setCurrentNavigation, ...props }) => {
 
     const [showAlert, setShowAlert] = useState(false)
+
+    useEffect(() => {
+        if (props.state.index == 0) {
+            setCurrentNavigation('Home')
+        }
+    }, [props])
 
     const openYoutube = () => {
         Linking.canOpenURL('youtube://channel/UCSsJY4uobyUO33vs3nc7xLQ').then(supported => {

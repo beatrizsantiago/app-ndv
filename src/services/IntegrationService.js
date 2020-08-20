@@ -25,9 +25,9 @@ export async function SendFeedback(lifeId, content) {
 }
 
 
-export async function RegisterNewLife(fullName, typeConversion, phone, email, birthday, baptismOtherChurch, baptismToday, baptismMinister) {
+export async function RegisterNewLife(fullName, typeConversion, phone, email, age, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        await axios.post('lifes', { fullName, phone, typeConversion, email, birthday, baptismOtherChurch, baptismToday, baptismMinister })
+        await axios.post('lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
         return true
 
     } catch (error) {
