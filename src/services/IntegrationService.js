@@ -3,7 +3,7 @@ import useSWR from 'swr'
 
 export async function GetLifes() {
     try {
-        let lifes = await axios.get('lifes')
+        let lifes = await axios.get('integration/lifes')
         return lifes.data
 
     } catch (error) {
@@ -15,7 +15,7 @@ export async function GetLifes() {
 export async function SendFeedback(lifeId, content) {
     try {
         console.warn(lifeId, content);
-        await axios.post('lifes/new-feedback', { lifeId, content })
+        await axios.post('integration/lifes/feedbacks', { lifeId, content })
         return true
 
     } catch (error) {
@@ -27,7 +27,7 @@ export async function SendFeedback(lifeId, content) {
 
 export async function RegisterNewLife(fullName, typeConversion, phone, email, age, baptismOtherChurch, baptismToday, baptismMinister) {
     try {
-        await axios.post('lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
+        await axios.post('integration/lifes', { fullName, phone, typeConversion, email, age, baptismOtherChurch, baptismToday, baptismMinister })
         return true
 
     } catch (error) {
